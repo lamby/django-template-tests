@@ -5,7 +5,7 @@ from django.test import TestCase
 
 from .utils import get_template_dirs
 
-re_url = re.compile(r'\shref="(?P<url>(?!https?:|mailto:|{|#)[^"]*)"')
+re_url = re.compile(r'\shref="(?P<url>(?!https?:|mailto:|\?|{|#)[^"]*)"')
 
 class TestTemplates(TestCase):
     def assertValidURLs(self, filename):
