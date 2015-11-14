@@ -6,7 +6,7 @@ setup(
     name='django-template-tests',
 
     url="https://chris-lamb.co.uk/projects/django-template-tests",
-    version='0.0.1',
+    version='1.0.0',
     description="Performs some quick static analysis on your templates",
 
     author="Chris Lamb",
