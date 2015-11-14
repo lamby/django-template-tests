@@ -1,8 +1,9 @@
 import re
 import os
 
-from django.conf import settings
 from django.test import TestCase
+
+from .utils import get_template_dirs
 
 re_url = re.compile(r'\shref="(?P<url>(?!https?:|mailto:|{|#)[^"]*)"')
 
@@ -17,11 +18,10 @@ class TestTemplates(TestCase):
         ))
 
     idx = 0
-    for x in settings.TEMPLATES:
-        for y in x['DIRS']:
-            for root, _, filenames in os.walk(y):
-                for z in filenames:
-                    def wrapper(self, filename=os.path.join(root, z)):
-                        self.assertValidURLs(filename)
-                    idx += 1
-                    locals()['test_template_idx_%04d' % idx] = wrapper
+    for x in get_template_dirs():
+        for root, _, filenames in os.walk(x):
+            for y in filenames:
+                def wrapper(self, filename=os.path.join(root, y)):
+                    self.assertValidURLs(filename)
+                idx += 1
+                locals()['test_template_idx_%04d' % idx] = wrapper
