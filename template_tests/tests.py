@@ -3,7 +3,6 @@ import os
 import six
 
 from django.test import TestCase
-
 from django.utils.text import slugify
 
 from .utils import get_template_dirs
