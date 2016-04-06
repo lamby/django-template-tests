@@ -1,7 +1,9 @@
 import re
 import os
+import six
 
 from django.test import TestCase
+
 from django.utils.text import slugify
 
 from .utils import get_template_dirs
@@ -24,9 +26,7 @@ class TestTemplatesMeta(type):
 
         return super(TestTemplatesMeta, cls).__new__(cls, name, bases, attrs)
 
-class TestTemplates(TestCase):
-    __metaclass__ = TestTemplatesMeta
-
+class TestTemplates(six.with_metaclass(TestTemplatesMeta, TestCase)):
     def assertValidURLs(self, template):
         with open(template) as f:
             urls = [m.group('url') for m in re_url.finditer(f.read())]
